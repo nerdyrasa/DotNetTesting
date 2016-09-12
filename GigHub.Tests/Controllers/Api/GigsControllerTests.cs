@@ -1,16 +1,12 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using FluentAssertions;
 using GigHub.Controllers.Api;
-using System.Security.Principal;
-using System.Security.Claims;
-using Moq;
 using GigHub.Core;
-using System.Web.Http;
-using GigHub.Tests.Extensions;
-using GigHub.Core.Repositories;
-using FluentAssertions;
-using System.Web.Http.Results;
 using GigHub.Core.Models;
+using GigHub.Core.Repositories;
+using GigHub.Tests.Extensions;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
+using System.Web.Http.Results;
 
 namespace GigHub.Tests
 {
