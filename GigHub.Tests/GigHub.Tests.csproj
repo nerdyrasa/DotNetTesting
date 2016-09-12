@@ -84,6 +84,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Controllers\Api\GigsControllerTests.cs" />
+    <Compile Include="Extensions\ApiControllerExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -96,6 +97,7 @@
       <Name>GigHub</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

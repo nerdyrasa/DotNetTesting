@@ -6,6 +6,7 @@ using System.Security.Claims;
 using Moq;
 using GigHub.Core;
 using System.Web.Http;
+using GigHub.Tests.Extensions;
 
 namespace GigHub.Tests
 {
@@ -16,20 +17,9 @@ namespace GigHub.Tests
 
         public GigsControllerTests()
         {
-            var identity = new GenericIdentity("user1@domain.com");
-            //https://msdn.microsoft.com/en-us/library/microsoft.identitymodel.claims.claimtypes_members.aspx
-            //Defines constants for the well-known claim types that are supported by Windows® Identity Foundation (WIF).
-
-            identity.AddClaim(
-              new Claim("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name", "user1@domain.com"));
-            identity.AddClaim(
-              new Claim("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier", "1"));
-
-            var principal = new GenericPrincipal(identity, null);
-
             var mockUoW = new Mock<IUnitOfWork>();
             _controller = new GigsController(mockUoW.Object);
-            _controller.User = principal;
+            _controller.MockCurrentUser("1", "user1@domain.com");
         }
     }
 }
