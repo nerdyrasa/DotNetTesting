@@ -35,20 +35,15 @@ namespace GigHub.Tests.Controllers.Api
         }
 
         [TestMethod]
-        public void Attend_ValidRequest_ReturnsOk()
+        public void Attend_ValidRequest_ShouldReturnOk()
         {
-            var gig = new Gig();
-
-            var attendanceDto = new AttendanceDto { GigId = gig.Id };
-
-            var result = _controller.Attend(attendanceDto);
+            var result = _controller.Attend(new AttendanceDto { GigId = 1 });
 
             result.Should().BeOfType<OkResult>();
-
         }
 
         [TestMethod]
-        public void Attend_AttendanceAlreadyExists_ReturnsBadRequest()
+        public void Attend_AttendanceForUserAlreadyExists_ShouldReturnBadRequest()
         {
             var attendance = new Attendance();
             _mockRepository.Setup(r => r.GetAttendance(1, _userId)).Returns(attendance);
@@ -56,6 +51,39 @@ namespace GigHub.Tests.Controllers.Api
             var result = _controller.Attend(new AttendanceDto { GigId = 1 });
 
             result.Should().BeOfType<BadRequestErrorMessageResult>();
+        }
+
+        [TestMethod]
+        public void DeleteAttendance_ValidRequest_ShouldReturnsOkResult()
+        {
+            var attendance = new Attendance();
+            _mockRepository.Setup(r => r.GetAttendance(1, _userId)).Returns(attendance);
+
+            var result = _controller.DeleteAttendance(1);
+
+            result.Should().BeOfType<OkNegotiatedContentResult<int>>();
+        }
+
+        [TestMethod]
+        public void DeleteAttendance_ValidRequest_ShouldReturnIdOfDeletedAttendance()
+        {
+            var attendance = new Attendance();
+            _mockRepository.Setup(r => r.GetAttendance(1, _userId)).Returns(attendance);
+
+            var result = (OkNegotiatedContentResult<int>)_controller.DeleteAttendance(1);
+
+            result.Content.Should().Be(1);
+
+        }
+
+        [TestMethod]
+        public void DeleteAttendance_AttendanceDoesNotExist_ShouldReturnNotFoundResult()
+        {
+            var result = _controller.DeleteAttendance(1);
+
+            result.Should().BeOfType<NotFoundResult>();
+
+
         }
     }
 }
